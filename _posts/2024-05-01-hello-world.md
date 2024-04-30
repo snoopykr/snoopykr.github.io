@@ -122,5 +122,6 @@ snoopy_kr@iMac ~ % docker inspect f2f58050ed69
 ]
 ```
 ## [참고] run 형식
-
+```
 $ docker run [OPTIONS] IMAGE[:TAG|@DIGEST] [COMMAND] [ARG...]
+```
