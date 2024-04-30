@@ -27,7 +27,7 @@ repository               : # GitHub username/repo-name e.g. "mmistakes/minimal-m
 teaser                   : # path of fallback teaser image, e.g. "/assets/images/500x300.png"
 logo                     : # path of logo image to display in the masthead, e.g. "/assets/images/88x88.png"
 masthead_title           : # overrides the website title displayed in the masthead, use " " for no title
-# breadcrumbs            : false # true, false (default)
+breadcrumbs              : true # true, false (default)
 words_per_minute         : 200
 copyright                : # "copyright" name, defaults to site.title
 copyright_url            : # "copyright" URL, defaults to site.url
@@ -114,7 +114,7 @@ author:
   name             : "Lee Wan"
   avatar           : "/assets/images/snoopy.jpeg"
   bio              : "인천 앞바다엔 사이다가 없다"
-  location         : "Korea Seoul"
+  location         : "South Korea Seoul"
   email            :
   links:
     - label: "Email"
