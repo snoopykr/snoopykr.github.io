@@ -115,11 +115,11 @@ author:
   avatar           : "/assets/images/snoopy.jpeg"
   bio              : "인천 앞바다엔 사이다가 없다"
   location         : "Korea Seoul"
-  email            : "snoopy_kr@yahoo.com"
+  email            : 
   links:
     - label: "Email"
       icon: "fas fa-fw fa-envelope-square"
-      # url: "mailto:snoopy_kr@yahoo.com"
+      url: "mailto:snoopy_kr@yahoo.com"
     - label: "Website"
       icon: "fas fa-fw fa-link"
       # url: "https://your-website.com"
