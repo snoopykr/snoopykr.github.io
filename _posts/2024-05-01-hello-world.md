@@ -20,9 +20,17 @@ ADD ./message /message
 CMD cat /message | figlet
 ```
 ## build
-```
+```bash
 snoopy_kr@iMac ~ % docker build --tag hello:1.0 .
 ```
+
+## 확인
+```bash
+snoopy_kr@iMac ~ % docker images
+REPOSITORY                           TAG                                                     IMAGE ID       CREATED          SIZE
+hello                                1.0                                                     0e664f242f0d   29 seconds ago   8.55MB
+```
+
 ## 실행
 ```bash
 snoopy_kr@iMac ~ % docker run hello:1.0
