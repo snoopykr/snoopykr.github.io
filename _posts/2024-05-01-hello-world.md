@@ -6,7 +6,9 @@ tag: [Build, figlet]
 toc: true
 ---
 
-## 준비 작업
+Docker을 이용해서 Hello World 작업을 해보자.
+
+## 파일 생성
 ```bash
 snoopy_kr@iMac ~ % cat message
 Hello World...!!!
@@ -21,7 +23,7 @@ CMD cat /message | figlet
 ```
 snoopy_kr@iMac ~ % docker build --tag hello:1.0 .
 ```
-## docker run
+## 실행
 ```bash
 snoopy_kr@iMac ~ % docker run hello:1.0
  _   _      _ _        __        __         _     _       _ _ _ 
@@ -31,7 +33,7 @@ snoopy_kr@iMac ~ % docker run hello:1.0
 |_| |_|\___|_|_|\___/     \_/\_/ \___/|_|  |_|\__,_(_|_|_|_|_|_)
 ```
 
-## docker image layer 정보 확인
+## [참고] image layer 정보
 ```bash
 snoopy_kr@iMac ~ % docker inspect f2f58050ed69
 [
@@ -119,6 +121,6 @@ snoopy_kr@iMac ~ % docker inspect f2f58050ed69
     }
 ]
 ```
-## docker run Help
+## [참고] run 형식
 
 $ docker run [OPTIONS] IMAGE[:TAG|@DIGEST] [COMMAND] [ARG...]
