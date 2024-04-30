@@ -17,7 +17,7 @@ minimal_mistakes_skin    : "contrast" # "air", "aqua", "contrast", "dark", "dirt
 # Site Settings
 locale                   : "ko-KR"
 title                    : "변견's Playground"
-title_separator          : "-"
+title_separator          : "|"
 subtitle                 : "Version 2.0"
 name                     : "Lee Wan"
 description              : "타협은 없다."
@@ -113,8 +113,8 @@ analytics:
 author:
   name             : "Lee Wan"
   avatar           : "/assets/images/snoopy.jpeg"
-  bio              : "I am an **amazing** person."
-  location         : "Seoul"
+  bio              : "인천 앞바다엔 사이다가 없다"
+  location         : "Korea Seoul"
   email            :
   links:
     - label: "Email"
