@@ -4,6 +4,7 @@ title: "Docker Hello World"
 categories : Docker
 tag: [Build, figlet]
 toc: true
+author_profile: false
 ---
 
 Docker을 이용해서 Hello World 작업을 해보자.
