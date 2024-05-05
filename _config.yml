@@ -301,5 +301,5 @@ defaults:
       toc: true
       toc_sticky: true
       toc_label: 목차
-      toc_icon: fa-solid fa-cart-shopping
+      toc_icon: fa-solid fa-recycle
       author_profile: false
