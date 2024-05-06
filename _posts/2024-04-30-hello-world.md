@@ -40,7 +40,7 @@ snoopy_kr@iMac ~ % docker run hello:1.0
 |_| |_|\___|_|_|\___/     \_/\_/ \___/|_|  |_|\__,_(_|_|_|_|_|_)
 ```
 
-## [참고] image layer 정보
+## [ref] image layer 정보
 ```bash
 snoopy_kr@iMac ~ % docker inspect f2f58050ed69
 [
@@ -128,7 +128,7 @@ snoopy_kr@iMac ~ % docker inspect f2f58050ed69
     }
 ]
 ```
-## [참고] run 형식
+## [ref] run 형식
 ```
 $ docker run [OPTIONS] IMAGE[:TAG|@DIGEST] [COMMAND] [ARG...]
 ```
