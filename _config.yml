@@ -112,7 +112,7 @@ analytics:
 # Site Author
 author:
   name             : "Lee Wan"
-  avatar           : "/assets/images/snoopy_1.jpeg"
+  avatar           : "/assets/images/snoopy_1.jpg"
   bio              : "블록체인에 취하고 머신러닝에 반하다."
   location         : "Seoul Korea"
   email            : 
