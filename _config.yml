@@ -22,7 +22,7 @@ subtitle                 : "Version 2.0"
 name                     : "Playground v2.0"
 description              : "타협은 실패한 자들의 변명일 뿐이다"
 url                      : "https://snoopykr.github.io"
-baseurl                  : "/blog" # the subpath of your site, e.g. "/blog"
+baseurl                  : # the subpath of your site, e.g. "/blog"
 repository               : # GitHub username/repo-name e.g. "mmistakes/minimal-mistakes"
 teaser                   : # path of fallback teaser image, e.g. "/assets/images/500x300.png"
 logo                     : "/assets/images/logo_1.png"
@@ -112,7 +112,7 @@ analytics:
 # Site Author
 author:
   name             : "Lee Wan"
-  avatar           : "/assets/images/snoopy.jpeg"
+  avatar           : "/assets/images/snoopy_1.jpeg"
   bio              : "블록체인에 취하고 머신러닝에 반하다."
   location         : "Seoul Korea"
   email            : 
