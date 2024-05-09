@@ -122,7 +122,7 @@ author:
       url: "mailto:snoopy_kr@yahoo.com"
     - label: "Blog v1"
       icon: "fas fa-fw fa-link"
-      url: "hhttps://blog.naver.com/welovefish"
+      url: "https://blog.naver.com/welovefish"
     - label: "Portfolio"
       icon: "fas fa-fw fa-link"
       url: "http://wizmeta.com:8080"
