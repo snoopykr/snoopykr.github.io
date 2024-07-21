@@ -8,8 +8,28 @@ tag: [unsloth, colab, Fine-tuning]
 Google Colab에서 무료로 Fine-tuning을 할수 있는 방법
 
 ### 설명
-- unsloth가 제공하는 Google Colab에서 Fine-tuning을 하는 방법을 제시한 소스
-- Fine-tuning에 대한 지식을 습득하기 좋은 샘플
+이 소스는 unsloth가 제공하는 소스로 Google Colab에서 무료로 Fine-tuning을 하는 방법을 제공하고 있으며 Fine-tuning에 대한 기본적인 지식을 원하는 이들에게는 최고의 자료가 될것이다.
+
+### 2024-07-22
+Google Colab의 변화로 인해 수정사항이 발생되었다.
+
+변경전
+```python
+%%capture
+# Installs Unsloth, Xformers (Flash Attention) and all other packages!
+!pip install "unsloth[colab-new] @ git+https://github.com/unslothai/unsloth.git"
+!pip install --no-deps xformers "trl<0.9.0" peft accelerate bitsandbytes
+```
+
+변경후
+```python
+%%capture
+# Installs Unsloth, Xformers (Flash Attention) and all other packages!
+!pip install "unsloth[colab-new] @ git+https://github.com/unslothai/unsloth.git"
+!pip install --no-deps "xformers<0.0.26" trl peft accelerate bitsandbytes
+```
+
+---
 
 To run this, press "*Runtime*" and press "*Run all*" on a **free** Tesla T4 Google Colab instance!
 <div class="align-center">
@@ -24,12 +44,13 @@ You will learn how to do [data prep](#Data), how to [train](#Train), how to [run
 
 See on our [blog post](https://unsloth.ai/blog/gemma) on how we made **Gemma 7b 2.5x faster** and **Gemma 2b 2x faster**!
 
+*에러 처리 완료*
 
 ```python
 %%capture
 # Installs Unsloth, Xformers (Flash Attention) and all other packages!
 !pip install "unsloth[colab-new] @ git+https://github.com/unslothai/unsloth.git"
-!pip install --no-deps xformers "trl<0.9.0" peft accelerate bitsandbytes
+!pip install --no-deps "xformers<0.0.26" trl peft accelerate bitsandbytes
 ```
 
 * We support Llama, Mistral, CodeLlama, TinyLlama, Vicuna, Open Hermes etc
