@@ -26,7 +26,7 @@ Google Colab의 변화로 인해 수정사항이 발생되었다.
 %%capture
 # Installs Unsloth, Xformers (Flash Attention) and all other packages!
 !pip install "unsloth[colab-new] @ git+https://github.com/unslothai/unsloth.git"
-!pip install --no-deps "xformers<0.0.26" trl peft accelerate bitsandbytes
+!pip install --no-deps "xformers<0.0.27" "trl<0.9.0" peft accelerate bitsandbytes
 ```
 
 ---
@@ -50,7 +50,7 @@ See on our [blog post](https://unsloth.ai/blog/gemma) on how we made **Gemma 7b 
 %%capture
 # Installs Unsloth, Xformers (Flash Attention) and all other packages!
 !pip install "unsloth[colab-new] @ git+https://github.com/unslothai/unsloth.git"
-!pip install --no-deps "xformers<0.0.26" trl peft accelerate bitsandbytes
+!pip install --no-deps "xformers<0.0.27" "trl<0.9.0" peft accelerate bitsandbytes
 ```
 
 * We support Llama, Mistral, CodeLlama, TinyLlama, Vicuna, Open Hermes etc
