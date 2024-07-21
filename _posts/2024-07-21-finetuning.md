@@ -87,47 +87,7 @@ model, tokenizer = FastLanguageModel.from_pretrained(
 )
 ```
 
-
-    config.json:   0%|          | 0.00/1.11k [00:00<?, ?B/s]
-
-
-    ==((====))==  Unsloth: Fast Gemma patching release 2024.3
-       \\   /|    GPU: Tesla T4. Max memory: 14.748 GB. Platform = Linux.
-    O^O/ \_/ \    Pytorch: 2.2.1+cu121. CUDA = 7.5. CUDA Toolkit = 12.1.
-    \        /    Bfloat16 = FALSE. Xformers = 0.0.24. FA = False.
-     "-____-"     Free Apache license: http://github.com/unslothai/unsloth
-
-
-    /usr/local/lib/python3.10/dist-packages/transformers/quantizers/auto.py:155: UserWarning: You passed `quantization_config` or equivalent parameters to `from_pretrained` but the model you're loading already has a `quantization_config` attribute. The `quantization_config` from the model will be used.
-      warnings.warn(warning_msg)
-
-
-
-    model.safetensors:   0%|          | 0.00/5.57G [00:00<?, ?B/s]
-
-
-
-    generation_config.json:   0%|          | 0.00/137 [00:00<?, ?B/s]
-
-
-
-    tokenizer_config.json:   0%|          | 0.00/2.16k [00:00<?, ?B/s]
-
-
-
-    tokenizer.model:   0%|          | 0.00/4.24M [00:00<?, ?B/s]
-
-
-
-    tokenizer.json:   0%|          | 0.00/17.5M [00:00<?, ?B/s]
-
-
-
-    special_tokens_map.json:   0%|          | 0.00/636 [00:00<?, ?B/s]
-
-
 We now add LoRA adapters so we only need to update 1 to 10% of all parameters!
-
 
 ```python
 model = FastLanguageModel.get_peft_model(
@@ -146,10 +106,6 @@ model = FastLanguageModel.get_peft_model(
 )
 ```
 
-    Unsloth 2024.3 patched 28 layers with 28 QKV layers, 28 O layers and 28 MLP layers.
-
-
-<a name="Data"></a>
 ### Data Prep
 We now use the Alpaca dataset from [yahma](https://huggingface.co/datasets/yahma/alpaca-cleaned), which is a filtered version of 52K of the original [Alpaca dataset](https://crfm.stanford.edu/2023/03/13/alpaca.html). You can replace this code section with your own data prep.
 
@@ -192,23 +148,6 @@ dataset = load_dataset("yahma/alpaca-cleaned", split = "train")
 dataset = dataset.map(formatting_prompts_func, batched = True,)
 ```
 
-
-    Downloading readme:   0%|          | 0.00/11.6k [00:00<?, ?B/s]
-
-
-
-    Downloading data:   0%|          | 0.00/44.3M [00:00<?, ?B/s]
-
-
-
-    Generating train split: 0 examples [00:00, ? examples/s]
-
-
-
-    Map:   0%|          | 0/51760 [00:00<?, ? examples/s]
-
-
-<a name="Train"></a>
 ### Train the model
 Now let's use Huggingface TRL's `SFTTrainer`! More docs here: [TRL SFT docs](https://huggingface.co/docs/trl/sft_trainer). We do 60 steps to speed things up, but you can set `num_train_epochs=1` for a full run, and turn off `max_steps=None`. We also support TRL's `DPOTrainer`!
 
@@ -244,16 +183,6 @@ trainer = SFTTrainer(
 )
 ```
 
-
-    Map (num_proc=2):   0%|          | 0/51760 [00:00<?, ? examples/s]
-
-
-    /usr/local/lib/python3.10/dist-packages/accelerate/accelerator.py:432: FutureWarning: Passing the following arguments to `Accelerator` is deprecated and will be removed in version 1.0 of Accelerate: dict_keys(['dispatch_batches', 'split_batches', 'even_batches', 'use_seedable_sampler']). Please pass an `accelerate.DataLoaderConfiguration` instead: 
-    dataloader_config = DataLoaderConfiguration(dispatch_batches=None, split_batches=False, even_batches=True, use_seedable_sampler=True)
-      warnings.warn(
-
-
-
 ```python
 #@title Show current memory stats
 gpu_stats = torch.cuda.get_device_properties(0)
@@ -263,22 +192,9 @@ print(f"GPU = {gpu_stats.name}. Max memory = {max_memory} GB.")
 print(f"{start_gpu_memory} GB of memory reserved.")
 ```
 
-    GPU = Tesla T4. Max memory = 14.748 GB.
-    5.938 GB of memory reserved.
-
-
-
 ```python
 trainer_stats = trainer.train()
 ```
-
-    ==((====))==  Unsloth - 2x faster free finetuning | Num GPUs = 1
-       \\   /|    Num examples = 51,760 | Num Epochs = 1
-    O^O/ \_/ \    Batch size per device = 2 | Gradient Accumulation steps = 4
-    \        /    Total batch size = 8 | Total steps = 60
-     "-____-"     Number of trainable parameters = 50,003,968
-
-
 
 ```python
 #@title Show final memory and time stats
@@ -294,15 +210,6 @@ print(f"Peak reserved memory % of max memory = {used_percentage} %.")
 print(f"Peak reserved memory for training % of max memory = {lora_percentage} %.")
 ```
 
-    549.6228 seconds used for training.
-    9.16 minutes used for training.
-    Peak reserved memory = 11.002 GB.
-    Peak reserved memory for training = 5.064 GB.
-    Peak reserved memory % of max memory = 74.6 %.
-    Peak reserved memory for training % of max memory = 34.337 %.
-
-
-<a name="Inference"></a>
 ### Inference
 Let's run the model! You can change the instruction and input - leave the output blank!
 
@@ -323,15 +230,9 @@ outputs = model.generate(**inputs, max_new_tokens = 64, use_cache = True)
 tokenizer.batch_decode(outputs)
 ```
 
-
-
-
-    ['<bos>Below is an instruction that describes a task, paired with an input that provides further context. Write a response that appropriately completes the request.\n\n### Instruction:\nContinue the fibonnaci sequence.\n\n### Input:\n1, 1, 2, 3, 5, 8\n\n### Response:\n13, 21, 34, 55, 89, 144<eos>']
-
-
+ >['<bos>Below is an instruction that describes a task, paired with an input that provides further context. Write a response that appropriately completes the request.\n\n### Instruction:\nContinue the fibonnaci sequence.\n\n### Input:\n1, 1, 2, 3, 5, 8\n\n### Response:\n13, 21, 34, 55, 89, 144<eos>']
 
  You can also use a `TextStreamer` for continuous inference - so you can see the generation token by token, instead of waiting the whole time!
-
 
 ```python
 # alpaca_prompt = Copied from above
@@ -350,16 +251,16 @@ text_streamer = TextStreamer(tokenizer)
 _ = model.generate(**inputs, streamer = text_streamer, max_new_tokens = 128)
 ```
 
-    <bos>Below is an instruction that describes a task, paired with an input that provides further context. Write a response that appropriately completes the request.
-    
-    ### Instruction:
-    Continue the fibonnaci sequence.
-    
-    ### Input:
-    1, 1, 2, 3, 5, 8
-    
-    ### Response:
-    13, 21, 34, 55, 89, 144<eos>
+><bos>Below is an instruction that describes a task, paired with an input that provides further context. Write a response that appropriately completes the request.
+>   
+>   ### Instruction:
+>   Continue the fibonnaci sequence.
+>   
+>   ### Input:
+>   1, 1, 2, 3, 5, 8
+>   
+>    ### Response:
+>    13, 21, 34, 55, 89, 144<eos>
 
 
 <a name="Save"></a>
@@ -404,16 +305,9 @@ inputs = tokenizer(
 outputs = model.generate(**inputs, max_new_tokens = 64, use_cache = True)
 tokenizer.batch_decode(outputs)
 ```
-
-
-
-
-    ['<bos>Below is an instruction that describes a task, paired with an input that provides further context. Write a response that appropriately completes the request.\n\n### Instruction:\nWhat is a famous tall tower in Paris?\n\n### Input:\n\n\n### Response:\nOne of the most famous tall towers in Paris is the Eiffel Tower. It is a wrought-iron lattice tower on the Champ de Mars in Paris, France. It is named after the engineer Gustave Eiffel, whose company designed and built the tower. The tower is 324 meters (1,063 feet']
-
-
+ >['<bos>Below is an instruction that describes a task, paired with an input that provides further context. Write a response that appropriately completes the request.\n\n### Instruction:\nWhat is a famous tall tower in Paris?\n\n### Input:\n\n\n### Response:\nOne of the most famous tall towers in Paris is the Eiffel Tower. It is a wrought-iron lattice tower on the Champ de Mars in Paris, France. It is named after the engineer Gustave Eiffel, whose company designed and built the tower. The tower is 324 meters (1,063 feet']
 
 You can also use Hugging Face's `AutoModelForPeftCausalLM`. Only use this if you do not have `unsloth` installed. It can be hopelessly slow, since `4bit` model downloading is not supported, and Unsloth's **inference is 2x faster**.
-
 
 ```python
 if False:
