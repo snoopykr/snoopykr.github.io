@@ -265,9 +265,10 @@ trainer_stats = trainer.train()
       <progress value='60' max='60' style='width:300px; height:20px; vertical-align: middle;'></progress>
       [60/60 08:54, Epoch 0/1]
     </div>
-    <table border="1" class="dataframe">
-  <thead>
- <tr style="text-align: left;">
+    
+<table border="1" class="dataframe">
+<thead>
+  <tr style="text-align: left;">
       <th>Step</th>
       <th>Training Loss</th>
     </tr>
