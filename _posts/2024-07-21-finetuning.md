@@ -262,8 +262,6 @@ _ = model.generate(**inputs, streamer = text_streamer, max_new_tokens = 128)
 >    ### Response:
 >    13, 21, 34, 55, 89, 144<eos>
 
-
-<a name="Save"></a>
 ### Saving, loading finetuned models
 To save the final model as LoRA adapters, either use Huggingface's `push_to_hub` for an online save or `save_pretrained` for a local save.
 
