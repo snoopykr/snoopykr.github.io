@@ -546,12 +546,8 @@ nginx-745567d4b8-nrpvv   0/1     ContainerCreating   0          7s
 RollingUpdate 방식은 기존 Pod를 일부 제거하고 새롭게 Update된 Pod를 일부 배포하는 과정을 반복하는 방식으로 점진적인 배포과정 때문에 완료까지 시간이 더 걸리겠지만 일부의 Pod는 계속 running 상태로 유지가 되기 때문에 Downtime이 발생하지 않는다.
 
 - strategy.rollingUpdate.maxSurge - Update시 최대 얼마만큼의 Pod를 더 생성할 수 있는지 정할 수 있는 설정이다. int 값(ex: 5) 또는 string 값(ex: 20%)으로 %의 사용이 가능하다.
-만약 replicas 갯수가 10개인 상황에서 maxSurge를 5로 설정했다면 update시 기존 Pod와 새로운 Pod를 최대 15개(10 + 5)까지 유지하며 update가 진행될 것이다.
-maxSurge를 20%로 설정했다면 update시 기존 Pod와 새로운 Pod를 최대 12개(10 + 2(replicas 갯수의 20%))까지 유지하며 update가 진행될 것이다.
 
 - strategy.rollingUpdate.maxUnavailable - Update시 최대 얼마만큼의 Pod가 unavailable 상태여도 되는지 정할 수 있는 설정이다. int 값(ex: 5) 또는 string 값(ex: 20%)으로 %의 사용이 가능하다.
-만약 replicas 갯수가 10개인 상황에서 maxUnavailable를 2로 설정했다면 update 시 10개의 Pod를 기준으로 2개까지 unavailable 상태가 가능하고 8개는 항상 정상동작 하는 상태가 유지 될 것이다.
-maxUnavailable를 20%로 설정한 경우에도 동일하게 동작할 것이다.
 
 ```bash
 snoopy_kr@iMac Basic % kubectl apply -f deployment.yaml               
