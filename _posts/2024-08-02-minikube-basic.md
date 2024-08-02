@@ -591,6 +591,8 @@ nginx-745567d4b8-xmgnf   1/1     Running   0          6s
 
 ## 롤백
 
+### 이력 확인
+
 ```bash
 snoopy_kr@iMac Basic % kubectl get rs
 NAME               DESIRED   CURRENT   READY   AGE
@@ -616,8 +618,11 @@ Pod Template:
     Environment:        <none>
     Mounts:     <none>
   Volumes:      <none>
+```
 
+### 롤백 실행
 
+```bash
 snoopy_kr@iMac Basic % kubectl rollout undo deployment/nginx --to-revision=1
 
 snoopy_kr@iMac Basic % kubectl rollout undo deployment/nginx
@@ -662,6 +667,8 @@ Pod Template:
     Mounts:     <none>
   Volumes:      <none>
 ```
+
+### CHANGE-CAUSE 이력 남기기
 
 ```bash
 snoopy_kr@iMac Basic %  kubectl annotate deployment/nginx kubernetes.io/change-cause="Nginx version 1.20.2"
