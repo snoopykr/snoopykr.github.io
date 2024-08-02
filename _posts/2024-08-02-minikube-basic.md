@@ -219,24 +219,14 @@ pod "network-share-pod" deleted
 ### Controller 종류
 
 - ReplicaSet - Pod의 집합을 관리한다. ReplicaSet의 선언시 Pod의 갯수, container image 등을 선언해 놓으면 계속 해당 조건을 만족시키도록 Pod를 관리해준다.
-예를들어 nginx container를 가진 Pod 4개를 관리해줘! 라고 요청하면 ReplicaSet은 지속적으로 Pod의 상태를 체크해서 정상적으로 동작하는 4개의 Pod를 유지해준다.
 
 - Deployment - ReplicaSet의 상위 개념으로 ReplicaSet을 관리한다. 즉 ReplicaSet, Pod가 모두 관리된다는 뜻이며 몇가지 Pod update 방식도 제공해주기 때문에 더욱 편리하게 배포 관리가 가능하다.
-따라서 ReplicaSet을 사용하기보단 Deployment를 사용하는 것이 Kubernetes의 공식 권장사항이다.
-예를들어 nginx container를 가진 Pod 4개를 Deployment를 통해 배포하면 해당 Pod를 관리하는 ReplicaSet이 Deployment에 의해 관리된다.(즉 Pod 4개가 ReplicaSet에 의해 유지됨)
-이 상태에서 nginx container의 version을 변경한다면 새로운 ReplicaSet이 생성되어 새로운 버전의 nginx container를 가진 Pod가 생성되고 이전 ReplicaSet이 삭제되며 Pod 또한 삭제된다.
-이렇게 Pod의 관리뿐 아니라 ReplicaSet도 관리를 해주기 때문에 당연히 ReplicaSet보단 Deployment를 사용하는 것이 좋다.
 
-- StatefulSet - 이름에서 유추할 수 있듯이 데이터베이스 등과 같이 상태가 유지되어야 하는 application을 지원하기 위한 controller 이다.
-Application이 종료 되더라도 연결되었던 저장소는 그대로 남아 있어 새로운 Application이 실행되면 기존의 저장소와 연결되어 상태를 유지시켜 준다.
+- StatefulSet - 이름에서 유추할 수 있듯이 데이터베이스 등과 같이 상태가 유지되어야 하는 application을 지원하기 위한 controller 이다. Application이 종료 되더라도 연결되었던 저장소는 그대로 남아 있어 새로운 Application이 실행되면 기존의 저장소와 연결되어 상태를 유지시켜 준다.
 
-- DaemonSet - Kubernetes cluster 내에 생성된 모든 Node에 대해 배포하고자 하는 Pod가 있다면 DasemonSet을 사용할 수 있다.
-Node가 생성되면 DaemonSet에 정의된 Pod를 생성하고 Node가 사라지면 생성된 Pod도 사라진다.
-개발을 하다보면 여러 Node에 배포된 Application의 Log를 추출해야 하는 경우가 일반적인데,
-이런 경우 Log를 추출해야 하는 agent 역할을 하는 application을 DaemonSet으로 관리하여 각각의 Node에 배포함으로써 모든 Application의 Log를 빠짐없이 추출할 수 있다.
+- DaemonSet - Kubernetes cluster 내에 생성된 모든 Node에 대해 배포하고자 하는 Pod가 있다면 DasemonSet을 사용할 수 있다. Node가 생성되면 DaemonSet에 정의된 Pod를 생성하고 Node가 사라지면 생성된 Pod도 사라진다.
 
-- Job - 계속 running 되는 Pod를 생성하는 것이 아닌, Pod를 생성하여 원하는 작업을 한 후 종료하고자 할 때 사용할 수 있는 controller 이다.
-환경에 따라 다양하게 사용될 수 있으며 Pod 생성 전략, 작업 실패시 전략 등 다양하게 설정을 변경하여 사용할 수 있다.
+- Job - 계속 running 되는 Pod를 생성하는 것이 아닌, Pod를 생성하여 원하는 작업을 한 후 종료하고자 할 때 사용할 수 있는 controller 이다. 환경에 따라 다양하게 사용될 수 있으며 Pod 생성 전략, 작업 실패시 전략 등 다양하게 설정을 변경하여 사용할 수 있다.
 
 - CronJob - Cron 표현식을 사용하여 원하는 시점에 바로 위에서 확인한 Job을 생성해 주는 controller 이다.
 
@@ -244,17 +234,11 @@ Node가 생성되면 DaemonSet에 정의된 Pod를 생성하고 Node가 사라�
 
 ### ReplicaSet 형식
 
-- replicas - ReplicaSet이 유지하고자 하는 Pod의 갯수이다.
-ReplicaSet은 지속적으로 Pod의 갯수를 확인하여 정상적으로 동작하고 있는 Pod의 갯수를 replicas에 정의한 갯수와 동일하게 맞춰준다.
-예제에서는 3개의 Pod를 관리하도록 설정해 주었다.
+- replicas - ReplicaSet이 유지하고자 하는 Pod의 갯수이다. ReplicaSet은 지속적으로 Pod의 갯수를 확인하여 정상적으로 동작하고 있는 Pod의 갯수를 replicas에 정의한 갯수와 동일하게 맞춰준다.
 
-- selector - ReplicaSet이 관리하고자 하는 Pod를 선택하기 위한 조건을 정의하는 필드이다.
-예제에서는 matchLabels를 사용하여 app: ubuntu 라는 label 을 가진 Pod를 선택하여 ReplicaSet이 관리하도록 조건을 정의하였다.
-이와 같이 ReplicaSet은 아무 Pod나 선택해서 관리하는 것이 아니라, 관리하고자 하는 Pod를 selector 필드를 통해 선택하여 관리하게 된다.
-selector에는 다양한 조건들의 추가가 가능한데 방법에 대해서는 Label selectors 에서 확인 가능하다.
+- selector - ReplicaSet이 관리하고자 하는 Pod를 선택하기 위한 조건을 정의하는 필드이다. ReplicaSet은 아무 Pod나 선택해서 관리하는 것이 아니라, 관리하고자 하는 Pod를 selector 필드를 통해 선택하여 관리하게 된다.
 
-- template - ReplicaSet을 통해 생성되고 관리되고자 하는 Pod에 대해 정의하는 필드이다. Pod를 정의할때와 마찬가지로 metadata와 spec에 대해 정의해주면 된다.
-ReplicaSet은 관리하고 있는 Pod의 갯수가 유지하고자 하는 Pod의 갯수보다 부족할때, 여기에 정의된 Pod를 생성하여 Pod의 갯수를 유지시킨다. 따라서 Pod의 metadata에 정의된 label은 반드시 ReplicaSet의 selector와 match가 되어야한다.
+- template - ReplicaSet을 통해 생성되고 관리되고자 하는 Pod에 대해 정의하는 필드이다. Pod를 정의할때와 마찬가지로 metadata와 spec에 대해 정의해주면 된다. Pod의 metadata에 정의된 label은 반드시 ReplicaSet의 selector와 match가 되어야한다.
 
 ```bash
 snoopy_kr@iMac Basic % kubectl apply -f replicaset.yaml
@@ -456,16 +440,11 @@ The ReplicaSet "ubuntu" is invalid: spec.template.metadata.labels: Invalid value
 
 ### Deployment 형식
 
-- replicas - 유지하고자 하는 Pod의 갯수이다.
-여기에 명시한 갯수만큼 정상적으로 동작하는 Pod의 갯수를 유지시킨다. (실행하려는 Pod가 정상적이지 않는 경우에 불가피하게 정상동작하는 Pod의 갯수를 유지하지 못하는 경우가 발생하기도 한다.)
+- replicas - 유지하고자 하는 Pod의 갯수이다. 명시한 갯수만큼 정상적으로 동작하는 Pod의 갯수를 유지시킨다. (실행하려는 Pod가 정상적이지 않는 경우에 불가피하게 정상동작하는 Pod의 갯수를 유지하지 못하는 경우가 발생하기도 한다.)
 
-- selector - 관리하고자 하는 Pod를 선택하기 위한 조건을 정의하는 필드이다.
-예제에서는 matchLabels를 사용하여 app: nginx 라는 label 을 가진 Pod를 선택하여 관리하도록 조건을 정의하였다.
-selector에는 다양한 조건들의 추가가 가능한데 방법에 대해서는 Label selectors 에서 확인 가능하다.
+- selector - 관리하고자 하는 Pod를 선택하기 위한 조건을 정의하는 필드이다. selector에는 다양한 조건들의 추가가 가능한데 방법에 대해서는 Label selectors 에서 확인 가능하다.
 
 - template - 관리되고자 하는 Pod에 대해 정의하는 필드이다. Pod를 정의할때와 마찬가지로 metadata와 spec에 대해 정의해주면 된다.
-관리하고 있는 Pod의 갯수가 유지하고자 하는 Pod의 갯수보다 부족할때, 여기에 정의된 Pod를 생성하여 Pod의 갯수를 유지시킨다. 따라서 Pod의 metadata에 정의된 label은 반드시 Deployment의 selector와 match가 되어야한다.
-예제에서는 nginx 1.20.2 버전의 container를 배포하고자 한다.
 
 ```bash
 snoopy_kr@iMac Basic % kubectl apply -f deployment.yaml
