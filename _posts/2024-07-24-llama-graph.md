@@ -1,7 +1,7 @@
 ---
 layout: single
 title: "Llama3 & LangGraph"
-categories : LLM
+categories : AI
 tag: [llama3, Langgraph, tavily]
 ---
 

@@ -1,7 +1,7 @@
 ---
 layout: single
 title: "Google Colab에서 Fine-tuning"
-categories : LLM
+categories : AI
 tag: [unsloth, colab, Fine-tuning]
 ---
 

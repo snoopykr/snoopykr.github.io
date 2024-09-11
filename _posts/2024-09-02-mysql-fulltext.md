@@ -1,7 +1,7 @@
 ---
 layout: single
 title: "MySQL FULLTEXT"
-categories : Python
+categories : MySQL
 tag: [MySQL, FULLTEXT]
 ---
 

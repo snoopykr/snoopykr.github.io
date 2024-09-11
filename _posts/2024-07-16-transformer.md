@@ -1,7 +1,7 @@
 ---
 layout: single
 title: "Transformer"
-categories : LLM
+categories : AI
 tag: [Transformer, google]
 ---
 
